@@ -389,8 +389,34 @@ val_pred = y_pred
 
 #step 4
 result = spark.createDataFrame(val_pred)
-result.show()
+result.printSchema()
 
 #step 5
+BUCKET = "dmacademy-course-assets"
 
 df.write.json('s3a://BUCKET/vlerick/simon.json')
+
+#Creating Session using Boto3
+
+session = boto3.Session(
+aws_access_key_id='<key ID>',
+aws_secret_access_key='<secret_key>'
+)
+ 
+#Create s3 session with boto3
+
+s3 = session.resource('s3')
+ 
+json_buffer = io.StringIO()
+ 
+# Create dataframe and convert to pandas
+df = spark.range(4).withColumn("organisation", lit("stackoverflow"))
+df_p = df.toPandas()
+df_p.to_json(json_buffer, orient='records')
+ 
+#Create s3 object
+object = s3.Object('<bucket-name>', '<JSON file name>')
+ 
+#Put the object into bucket
+result = object.put(Body=json_buffer.getvalue())
+###############
