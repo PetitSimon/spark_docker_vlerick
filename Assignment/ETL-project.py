@@ -389,3 +389,7 @@ val_pred = y_pred
 #step 4
 result = spark.createDataFrame(val_pred)
 reult.show()
+
+#step 5
+
+df.write.json("s3://dmacademy-course-assets/vlerick/Simon/")
