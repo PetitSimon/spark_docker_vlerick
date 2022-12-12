@@ -1,4 +1,5 @@
 #step 1: Read the CSV data from this S3 bucket using PySpark
+import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 
@@ -388,8 +389,8 @@ val_pred = y_pred
 
 #step 4
 result = spark.createDataFrame(val_pred)
-reult.show()
+result.show()
 
 #step 5
 
-df.write.json("s3://dmacademy-course-assets/vlerick/Simon/")
+df.write.json('s3a://BUCKET/vlerick/simon.json')
