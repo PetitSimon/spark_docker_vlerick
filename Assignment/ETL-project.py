@@ -29,6 +29,16 @@ df1 = df_pre.toPandas()
 
 #######BEGIN--------ML
 #step 3
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import LabelEncoder, StandardScaler, MinMaxScaler
+from sklearn.impute import SimpleImputer
+import networkx as nx
+import itertools
+import matplotlib.pyplot as plt
+
 df.rename(columns = {'actor_2_facebook_likes;':'actor_2_facebook_likes'}, inplace = True)
 df['actor_2_facebook_likes'] = df['actor_2_facebook_likes'].replace(';','', regex=True)
 df['actor_2_facebook_likes'].replace('', np.nan, inplace = True) 
@@ -503,5 +513,5 @@ pd.DataFrame({'eval_criteria': ['r-square','MAE'],'value':[rsquare,mae]})
 #######END---ML##########
 
 #step 4
-result = spart.dataframes(val_pred)
-result.d
+result = spark.createDataFrame(y_pred)
+reult.show()
